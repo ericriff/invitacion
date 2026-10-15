@@ -433,7 +433,7 @@
       checkCount.textContent = `${selectedCount} / ${requirements.length} confirmed`;
     };
     requirements.forEach(box => box.addEventListener('change', updateConfirm));
-    noBtn.addEventListener('pointerenter', event => {
+    const jumpNoButton = (pointerX, pointerY) => {
       const card = document.querySelector('main');
       const cardRect = card.getBoundingClientRect();
       const yesRect = yesBtn.getBoundingClientRect();
@@ -447,7 +447,7 @@
       const height = buttonRect.height;
       const minX = edge;
       const maxX = Math.max(minX, card.clientWidth - width - edge);
-      const minY = actionsRect.top - originY - edge;
+      const minY = edge;
       const maxY = Math.max(minY, card.clientHeight - height - edge);
       const yesLeft = yesRect.left - originX - gap - width;
       const yesRight = yesRect.right - originX + gap;
@@ -461,14 +461,22 @@
         if (!overlapsYes) candidates.push({ x, y });
       }
       if (!candidates.length) {
-        candidates.push({ x: Math.max(minX, Math.min(maxX, yesRight)), y: minY });
+        const stepX = Math.max(36, Math.floor(width / 2));
+        const stepY = Math.max(36, Math.floor(height / 2));
+        for (let y = minY; y <= maxY; y += stepY) {
+          for (let x = minX; x <= maxX; x += stepX) {
+            const overlapsYes = x < yesRight && x + width > yesLeft && y < yesBottom && y + height > yesTop;
+            if (!overlapsYes) candidates.push({ x, y });
+          }
+        }
       }
+      if (!candidates.length) return;
       const maxJump = Math.hypot(card.clientWidth, card.clientHeight) * .72;
       const minJump = Math.min(90 + noJumpCount * 55, maxJump);
       const fartherSpots = candidates.filter(spot => {
         const centerX = originX + spot.x + width / 2;
         const centerY = originY + spot.y + height / 2;
-        return Math.hypot(centerX - event.clientX, centerY - event.clientY) >= minJump;
+        return Math.hypot(centerX - pointerX, centerY - pointerY) >= minJump;
       });
       const options = fartherSpots.length ? fartherSpots : candidates;
       const spot = options[Math.floor(Math.random() * options.length)];
@@ -477,6 +485,19 @@
       noBtn.style.left = `${spot.x}px`;
       noBtn.style.top = `${spot.y}px`;
       noBtn.style.zIndex = '2';
+    };
+    noBtn.addEventListener('pointerenter', event => {
+      if (event.pointerType === 'mouse') jumpNoButton(event.clientX, event.clientY);
+    });
+    noBtn.addEventListener('pointerdown', event => {
+      if (event.pointerType === 'touch') {
+        event.preventDefault();
+        jumpNoButton(event.clientX, event.clientY);
+      }
+    });
+    noBtn.addEventListener('click', event => {
+      event.preventDefault();
+      event.stopPropagation();
     });
     confirmBtn.addEventListener('click', () => {
       if (confirmBtn.disabled) return;
