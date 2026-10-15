@@ -37,6 +37,7 @@
     main { position: relative; container-type: inline-size; isolation: isolate; overflow: hidden; padding: clamp(24px, 6vw, 58px); border: 1px solid rgba(255,255,255,.09); background: var(--panel); }
     main > :not(.watermark) { position: relative; z-index: 1; }
     main > .watermark { z-index: 0; }
+    main > .actions { position: static; }
     main::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(135deg, transparent 49.8%, rgba(214,255,63,.08) 50%, transparent 50.2%); }
     .topline { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: var(--muted); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; }
     .stamp { color: var(--acid); border: 1px solid var(--acid); padding: 7px 10px; transform: rotate(-4deg); }
@@ -55,7 +56,7 @@
     .value { color: var(--ink); font: 600 15px/1.4 system-ui, sans-serif; }
     .value.edit { color: var(--acid); }
     .section-label { margin: 29px 0 13px; color: var(--muted); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; }
-    .actions { display: flex; align-items: center; gap: 13px; min-height: 54px; }
+    .actions { position: static; display: flex; align-items: center; gap: 13px; min-height: 54px; }
     button { border: 0; border-radius: 0; padding: 15px 21px; font: 800 11px ui-monospace, monospace; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: background .2s, color .2s, transform .18s; }
     button:focus-visible, input:focus-visible + span { outline: 2px solid white; outline-offset: 4px; }
     .yes { color: #10120f; background: var(--acid); box-shadow: 4px 4px 0 rgba(214,255,63,.18); }
@@ -148,14 +149,40 @@
     const updateConfirm = () => { confirmBtn.disabled = !requirements.every(box => box.checked); };
     requirements.forEach(box => box.addEventListener('change', updateConfirm));
     noBtn.addEventListener('pointerenter', () => {
-      const bounds = noBtn.getBoundingClientRect();
-      const margin = 18;
-      const x = margin + Math.random() * Math.max(0, window.innerWidth - bounds.width - margin * 2);
-      const y = margin + Math.random() * Math.max(0, window.innerHeight - bounds.height - margin * 2);
-      noBtn.style.position = 'fixed';
-      noBtn.style.left = `${x}px`;
-      noBtn.style.top = `${y}px`;
-      noBtn.style.zIndex = '3';
+      const card = document.querySelector('main');
+      const cardRect = card.getBoundingClientRect();
+      const yesRect = yesBtn.getBoundingClientRect();
+      const buttonRect = noBtn.getBoundingClientRect();
+      const actionsRect = noBtn.parentElement.getBoundingClientRect();
+      const originX = cardRect.left + card.clientLeft;
+      const originY = cardRect.top + card.clientTop;
+      const edge = 12;
+      const gap = 14;
+      const width = buttonRect.width;
+      const height = buttonRect.height;
+      const minX = edge;
+      const maxX = Math.max(minX, card.clientWidth - width - edge);
+      const minY = actionsRect.top - originY - edge;
+      const maxY = Math.max(minY, card.clientHeight - height - edge);
+      const yesLeft = yesRect.left - originX - gap - width;
+      const yesRight = yesRect.right - originX + gap;
+      const yesTop = yesRect.top - originY - gap - height;
+      const yesBottom = yesRect.bottom - originY + gap;
+      const candidates = [];
+      for (let i = 0; i < 30; i += 1) {
+        const x = minX + Math.random() * (maxX - minX);
+        const y = minY + Math.random() * (maxY - minY);
+        const overlapsYes = x < yesRight && x + width > yesLeft && y < yesBottom && y + height > yesTop;
+        if (!overlapsYes) candidates.push({ x, y });
+      }
+      if (!candidates.length) {
+        candidates.push({ x: Math.max(minX, Math.min(maxX, yesRight)), y: minY });
+      }
+      const spot = candidates[Math.floor(Math.random() * candidates.length)];
+      noBtn.style.position = 'absolute';
+      noBtn.style.left = `${spot.x}px`;
+      noBtn.style.top = `${spot.y}px`;
+      noBtn.style.zIndex = '2';
     });
     noBtn.addEventListener('click', () => yesBtn.click());
     confirmBtn.addEventListener('click', () => {
