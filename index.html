@@ -30,7 +30,47 @@
     .watermark { position: absolute; z-index: 0; inset: 0; display: grid; place-items: center; overflow: hidden; pointer-events: none; }
     .watermark span { display: block; width: 100%; color: #ff3030; opacity: .085; font: 900 18cqw/.9 Impact, "Arial Narrow", sans-serif; letter-spacing: .025em; text-align: center; white-space: nowrap; transform: rotate(-24deg); text-shadow: 0 0 2px #ff303033; }
     body::after { content: ""; pointer-events: none; position: fixed; inset: 0; opacity: .14; background: repeating-linear-gradient(0deg, transparent 0 3px, #000 4px); }
-    .frame { position: relative; z-index: 1; width: min(100%, 760px); border: 1px solid var(--line); padding: 10px; background: rgba(0,0,0,.26); box-shadow: 0 24px 100px #0009; }
+    .frame { display: none; position: relative; z-index: 1; width: min(100%, 760px); border: 1px solid var(--line); padding: 10px; background: rgba(0,0,0,.26); box-shadow: 0 24px 100px #0009; }
+    body.started .frame { display: block; animation: reveal .55s ease-out both; }
+    .boot-screen { position: fixed; z-index: 3; inset: 0; display: grid; place-items: center; padding: 28px 20px; background: radial-gradient(ellipse at 50% 45%, #29321b 0, #151811 45%, #0b0d0a 100%); transition: opacity .55s ease, visibility .55s ease; }
+    .boot-screen.leaving { opacity: 0; visibility: hidden; }
+    .boot-panel { width: min(100%, 740px); text-align: center; }
+    .boot-kicker { color: var(--acid); font-size: 10px; letter-spacing: .28em; text-transform: uppercase; }
+    .boot-title { margin: 13px 0 7px; color: var(--ink); font: 900 clamp(28px, 6vw, 43px)/1 Impact, "Arial Narrow", sans-serif; letter-spacing: .04em; text-transform: uppercase; }
+    .boot-hint { margin: 0; color: var(--muted); font: 13px/1.6 system-ui, sans-serif; }
+    .desk { position: relative; width: min(100%, 700px); height: 420px; margin: 6px auto 8px; }
+    .computer { position: absolute; z-index: 1; top: 12px; left: 58%; display: grid; grid-template-columns: minmax(0,1fr) 78px; gap: 10px; width: min(530px, 92vw); height: 310px; transform: translateX(-50%); }
+    .monitor-frame { position: relative; width: min(430px, 88%); height: 222px; margin: 0 auto; padding: 12px; border: 2px solid #62675c; border-radius: 13px; background: linear-gradient(145deg,#41463d,#1b1e1a 65%); box-shadow: 0 18px 32px #0009, inset 0 1px #ffffff20; transition: border-color .2s, box-shadow .2s; }
+    .computer.ready .monitor-frame, .computer.ready .tower { border-color: var(--acid); box-shadow: 0 0 24px #d6ff3f44, 0 18px 32px #0008; }
+    .monitor { height: 190px; padding: 9px; border: 2px solid #080a08; border-radius: 5px; background: linear-gradient(145deg,#152019,#09100d); box-shadow: inset 0 0 25px #000; }
+    .monitor-screen { height: 100%; display: grid; place-content: center; gap: 10px; border: 1px solid #74834355; background: radial-gradient(ellipse at center,#1e2b1a,#10170f 75%); color: #a4b87a; text-transform: uppercase; }
+    .screen-mark { font-size: 9px; letter-spacing: .25em; }
+    .screen-prompt { font-size: 11px; letter-spacing: .14em; }
+    .monitor-slot { position: absolute; top: 202px; left: 50%; width: 39px; height: 5px; border-radius: 4px; background: #050605; box-shadow: inset 0 1px 2px #000, 0 0 0 1px #70776b55; transform: translateX(-50%); }
+    .power-light { position: absolute; right: 18px; bottom: 9px; width: 5px; height: 5px; border-radius: 50%; background: var(--acid); box-shadow: 0 0 8px var(--acid); }
+    .computer-stand { position: absolute; top: 218px; left: 50%; width: 74px; height: 35px; background: linear-gradient(90deg,#292d28,#555a50,#252923); clip-path: polygon(23% 0,77% 0,90% 78%,100% 88%,100% 100%,0 100%,0 88%,10% 78%); transform: translateX(-50%); }
+    .computer-foot { position: absolute; top: 247px; left: 50%; width: 150px; height: 12px; border-radius: 50% 50% 5px 5px; background: linear-gradient(#42473e,#20231f); transform: translateX(-50%); }
+    .tower { position: relative; height: 246px; margin-top: 2px; overflow: hidden; border: 2px solid #555b50; border-radius: 7px; background: linear-gradient(100deg,#333830,#171a16 70%); box-shadow: 0 15px 28px #0009, inset 0 1px #ffffff22; transition: border-color .2s, box-shadow .2s; }
+    .tower-top { height: 11px; margin: 8px 8px 10px; border-radius: 2px; background: #11130f; box-shadow: inset 0 1px #ffffff15; }
+    .tower-drive { height: 17px; margin: 0 8px 8px; border: 1px solid #55594f; border-radius: 2px; background: linear-gradient(#292d27,#171a16); }
+    .tower-drive::after { content: ""; display: block; width: 18px; height: 2px; margin: 10px auto 0; background: #090a08; }
+    .tower-vent { display: block; height: 3px; margin: 5px 10px; border-radius: 2px; background: #090b09; box-shadow: 0 1px #ffffff12; }
+    .tower-button { position: absolute; right: 11px; bottom: 12px; width: 9px; height: 9px; border: 1px solid #94998c; border-radius: 50%; background: #21251f; }
+    .tower-button::after { content: ""; position: absolute; inset: 2px; border-radius: 50%; background: var(--acid); box-shadow: 0 0 6px var(--acid); }
+    .keyboard { position: absolute; top: 280px; left: calc(50% - 44px); width: min(270px, 60%); height: 19px; border: 1px solid #5a5f54; border-radius: 4px 4px 8px 8px; background: linear-gradient(#41463d,#242822); box-shadow: 0 6px 12px #0008; transform: translateX(-50%); }
+    .keyboard::before { content: ""; position: absolute; inset: 4px 8px 7px; background: repeating-linear-gradient(90deg,#171a16 0 7px,transparent 7px 10px), repeating-linear-gradient(0deg,#171a16 0 3px,transparent 3px 6px); }
+    .usb-drive { position: absolute; z-index: 2; left: 0; bottom: 4px; display: flex; align-items: center; width: 133px; height: 60px; padding: 0; border: 0; background: transparent; touch-action: none; cursor: grab; filter: drop-shadow(0 10px 7px #0008); animation: usbBreathe 2s ease-in-out infinite; transition: left .22s ease, top .22s ease, bottom .22s ease, filter .2s; }
+    @keyframes usbBreathe { 0%, 100% { transform: scale(1); filter: drop-shadow(0 9px 6px #0007); } 50% { transform: scale(1.07); filter: drop-shadow(0 13px 10px #d6ff3f44); } }
+    .usb-drive.dragging { animation: none; }
+    .usb-drive:active { cursor: grabbing; filter: drop-shadow(0 13px 9px #0009); }
+    .usb-shell { position: relative; z-index: 1; display: grid; place-items: center; width: 100px; height: 43px; border: 1px solid #555a55; border-radius: 9px 4px 4px 9px; background: linear-gradient(145deg,#303532,#101311 75%); box-shadow: inset 0 2px #ffffff20, inset 0 -3px #0009; color: #ff3838; text-shadow: 0 0 7px #ff171766; font-size: 8px; font-weight: 900; letter-spacing: .12em; }
+    .usb-shell::before { content: ""; position: absolute; left: 10px; top: 6px; width: 8px; height: 8px; border: 2px solid #a72a2a; border-radius: 50%; }
+    .usb-shell::after { content: ""; position: absolute; right: 9px; top: 7px; width: 4px; height: 28px; border-radius: 4px; background: #080a09; }
+    .usb-plug { width: 29px; height: 23px; margin-left: -1px; border: 2px solid #adb2a3; border-left: 0; border-radius: 0 4px 4px 0; background: linear-gradient(#858b7d,#4a5047); box-shadow: inset 0 2px #ffffff35; }
+    .insert-option { margin-top: 5px; color: var(--acid); background: transparent; border: 1px solid var(--line); }
+    .insert-option:hover { background: #d6ff3f16; }
+    .boot-status { min-height: 18px; margin-top: 12px; color: #858879; font-size: 9px; letter-spacing: .15em; text-transform: uppercase; }
+    @media (max-width: 520px) { .desk { height: 375px; } .computer { top: 8px; left: 50%; width: min(390px, 94vw); height: 260px; grid-template-columns: minmax(0,1fr) 62px; gap: 6px; } .monitor-frame { width: 100%; height: 190px; padding: 9px; border-radius: 10px; } .monitor { height: 166px; padding: 7px; } .monitor-slot { top: 171px; width: 33px; height: 4px; } .power-light { right: 12px; bottom: 7px; } .computer-stand { top: 186px; width: 60px; height: 31px; } .computer-foot { top: 211px; width: 115px; height: 10px; } .tower { height: 220px; } .tower-top { margin: 7px 6px; } .tower-drive { margin-inline: 6px; } .tower-vent { margin-inline: 8px; } .tower-button { right: 8px; bottom: 9px; } .keyboard { top: 238px; left: calc(50% - 34px); width: min(185px, 62%); height: 17px; } .usb-drive { left: 0; bottom: 2px; width: 116px; height: 54px; } .usb-shell { width: 86px; height: 39px; } .usb-plug { width: 26px; height: 21px; } }
     .frame::before, .frame::after { content: ""; position: absolute; width: 16px; height: 16px; border-color: var(--acid); border-style: solid; }
     .frame::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
     .frame::after { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
@@ -90,6 +130,35 @@
   </style>
 </head>
 <body>
+  <section class="boot-screen" id="bootScreen" aria-label="Insert the invitation drive">
+    <div class="boot-panel">
+      <div class="boot-kicker">Classified transmission detected</div>
+      <h1 class="boot-title">Connect the secure drive</h1>
+      <p class="boot-hint">Drag the USB drive into the computer to decrypt the invitation.</p>
+      <div class="desk" id="desk">
+        <div class="computer" id="computer" aria-label="Computer USB port">
+          <div class="monitor-frame">
+            <div class="monitor"><div class="monitor-screen"><span class="screen-mark">IMF · Secure terminal</span><span class="screen-prompt">Awaiting drive</span></div></div>
+            <div class="monitor-slot" aria-hidden="true"></div>
+            <div class="power-light" aria-hidden="true"></div>
+            <div class="computer-stand" aria-hidden="true"></div>
+            <div class="computer-foot" aria-hidden="true"></div>
+          </div>
+          <div class="tower" aria-hidden="true">
+            <div class="tower-top"></div><div class="tower-drive"></div>
+            <span class="tower-vent"></span><span class="tower-vent"></span><span class="tower-vent"></span><span class="tower-vent"></span><span class="tower-vent"></span>
+            <span class="tower-button"></span>
+          </div>
+          <div class="keyboard" aria-hidden="true"></div>
+        </div>
+        <button class="usb-drive" id="usbDrive" type="button" aria-label="USB drive. Drag it onto the computer.">
+          <span class="usb-shell">TOP SECRET</span><span class="usb-plug" aria-hidden="true"></span>
+        </button>
+      </div>
+      <button class="insert-option" id="insertOption" type="button">Insert drive</button>
+      <div class="boot-status" id="bootStatus" aria-live="polite">Drive ready · Awaiting connection</div>
+    </div>
+  </section>
   <div class="frame">
     <main>
       <div class="watermark" aria-hidden="true"><span>TOP SECRET</span></div>
@@ -140,6 +209,85 @@
     const count = document.querySelector('#count');
     let seconds = document.querySelector('#seconds');
     let countdown;
+
+    const bootScreen = document.querySelector('#bootScreen');
+    const desk = document.querySelector('#desk');
+    const computer = document.querySelector('#computer');
+    const computerScreen = document.querySelector('.monitor-frame');
+    const usbDrive = document.querySelector('#usbDrive');
+    const bootStatus = document.querySelector('#bootStatus');
+    let dragOffsetX = 0;
+    let dragOffsetY = 0;
+    let dragging = false;
+
+    const launchInvitation = () => {
+      if (document.body.classList.contains('started')) return;
+      bootStatus.textContent = 'Connection established · Decrypting invitation…';
+      computer.classList.add('ready');
+      bootScreen.classList.add('leaving');
+      window.setTimeout(() => {
+        bootScreen.hidden = true;
+        document.body.classList.add('started');
+        yesBtn.focus({ preventScroll: true });
+      }, 560);
+    };
+    const snapUsbBack = () => {
+      usbDrive.style.left = '';
+      usbDrive.style.top = '';
+      usbDrive.style.bottom = '';
+    };
+    const isOverComputer = () => {
+      const usbRect = usbDrive.getBoundingClientRect();
+      const pcRect = computerScreen.getBoundingClientRect();
+      const centerX = usbRect.left + usbRect.width / 2;
+      const centerY = usbRect.top + usbRect.height / 2;
+      return centerX >= pcRect.left && centerX <= pcRect.right && centerY >= pcRect.top && centerY <= pcRect.bottom;
+    };
+    usbDrive.addEventListener('pointerdown', event => {
+      event.preventDefault();
+      dragging = true;
+      usbDrive.classList.add('dragging');
+      usbDrive.setPointerCapture(event.pointerId);
+      const stageRect = desk.getBoundingClientRect();
+      const driveRect = usbDrive.getBoundingClientRect();
+      dragOffsetX = event.clientX - driveRect.left;
+      dragOffsetY = event.clientY - driveRect.top;
+      usbDrive.style.left = `${driveRect.left - stageRect.left}px`;
+      usbDrive.style.top = `${driveRect.top - stageRect.top}px`;
+      usbDrive.style.bottom = 'auto';
+      usbDrive.style.transition = 'none';
+    });
+    usbDrive.addEventListener('pointermove', event => {
+      if (!dragging) return;
+      const stageRect = desk.getBoundingClientRect();
+      const maxX = desk.clientWidth - usbDrive.offsetWidth;
+      const maxY = desk.clientHeight - usbDrive.offsetHeight;
+      const x = Math.max(0, Math.min(maxX, event.clientX - stageRect.left - dragOffsetX));
+      const y = Math.max(0, Math.min(maxY, event.clientY - stageRect.top - dragOffsetY));
+      usbDrive.style.left = `${x}px`;
+      usbDrive.style.top = `${y}px`;
+      computer.classList.toggle('ready', isOverComputer());
+    });
+    usbDrive.addEventListener('pointerup', () => {
+      if (!dragging) return;
+      dragging = false;
+      usbDrive.classList.remove('dragging');
+      usbDrive.style.transition = '';
+      if (isOverComputer()) {
+        launchInvitation();
+      } else {
+        computer.classList.remove('ready');
+        snapUsbBack();
+      }
+    });
+    usbDrive.addEventListener('pointercancel', () => {
+      dragging = false;
+      usbDrive.classList.remove('dragging');
+      usbDrive.style.transition = '';
+      computer.classList.remove('ready');
+      snapUsbBack();
+    });
+    document.querySelector('#insertOption').addEventListener('click', launchInvitation);
 
     yesBtn.addEventListener('click', () => {
       response.classList.add('show');

@@ -1,6 +1,6 @@
 # Operation: Birthday
 
-A single-file, static RSVP invitation. Open `index.html` in a browser to preview it. Replace the four bracketed details in the party dossier before sharing:
+A single-file, static RSVP invitation. Open `index.html` in a browser to preview it: drag the USB drive onto the computer to reveal the invitation, or use the **Insert drive** button. Replace the bracketed party details before sharing:
 
 - `[Your name]`
 - `[Date] · [Time]`
