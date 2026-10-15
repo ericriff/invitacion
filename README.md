@@ -6,7 +6,7 @@ A single-file, static RSVP invitation. Open `index.html` in a browser to preview
 - `[Date] · [Time]`
 - `[Party address]`
 
-The RSVP is handled in the browser and is not sent or stored anywhere. The self-destruct is a visual effect: it clears the confirmation message after five seconds; it does not erase browser or server data.
+The RSVP selections are handled in the browser and are not sent or stored anywhere. After confirming, guests can open the WhatsApp link to send their confirmation manually. The self-destruct is a visual effect: it clears the confirmation message after five seconds; it does not erase browser or server data.
 
 ## Free hosting with GitHub Pages
 
