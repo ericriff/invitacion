@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10120f">
+  <meta name="description" content="A classified birthday party invitation. Accept the mission before this message self-destructs.">
+  <title>Operation: Birthday — Classified Invitation</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f4f0df;
+      --muted: #a5a28f;
+      --acid: #d6ff3f;
+      --red: #ff5749;
+      --panel: rgba(20, 23, 18, .88);
+      --line: rgba(214, 255, 63, .24);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; color: var(--ink);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      background: #10120f;
+      background-image: radial-gradient(ellipse at 50% 42%, rgba(96, 110, 49, .20), transparent 58%),
+        linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+      background-size: auto, 36px 36px, 36px 36px;
+      display: grid; place-items: center; padding: 28px 18px;
+    }
+    body::after { content: ""; pointer-events: none; position: fixed; inset: 0; opacity: .14; background: repeating-linear-gradient(0deg, transparent 0 3px, #000 4px); }
+    .frame { position: relative; width: min(100%, 760px); border: 1px solid var(--line); padding: 10px; background: rgba(0,0,0,.26); box-shadow: 0 24px 100px #0009; }
+    .frame::before, .frame::after { content: ""; position: absolute; width: 16px; height: 16px; border-color: var(--acid); border-style: solid; }
+    .frame::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
+    .frame::after { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
+    main { position: relative; overflow: hidden; padding: clamp(24px, 6vw, 58px); border: 1px solid rgba(255,255,255,.09); background: var(--panel); }
+    main::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(135deg, transparent 49.8%, rgba(214,255,63,.08) 50%, transparent 50.2%); }
+    .topline { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: var(--muted); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; }
+    .stamp { color: var(--acid); border: 1px solid var(--acid); padding: 7px 10px; transform: rotate(-4deg); }
+    .signal { display: flex; align-items: center; gap: 8px; }
+    .signal::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--red); box-shadow: 0 0 12px var(--red); animation: blink 1.2s infinite; }
+    @keyframes blink { 50% { opacity: .28; } }
+    .eyebrow { margin: 42px 0 13px; color: var(--acid); font-size: 11px; letter-spacing: .28em; text-transform: uppercase; }
+    h1 { margin: 0; max-width: 590px; font-family: Impact, "Arial Narrow", sans-serif; font-size: clamp(47px, 10vw, 86px); line-height: .9; font-weight: 900; letter-spacing: -.035em; text-transform: uppercase; }
+    h1 span { display: block; color: var(--acid); }
+    .intro { max-width: 510px; margin: 25px 0 30px; color: #c2c0b2; font: 15px/1.7 system-ui, sans-serif; }
+    .dossier { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid rgba(255,255,255,.14); background: rgba(0,0,0,.3); }
+    .datum { padding: 17px 19px; border-bottom: 1px solid rgba(255,255,255,.1); }
+    .datum:nth-child(odd) { border-right: 1px solid rgba(255,255,255,.1); }
+    .datum:nth-last-child(-n+2) { border-bottom: 0; }
+    .label { display: block; margin-bottom: 8px; color: var(--muted); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; }
+    .value { color: var(--ink); font: 600 15px/1.4 system-ui, sans-serif; }
+    .value.edit { color: var(--acid); }
+    .section-label { margin: 29px 0 13px; color: var(--muted); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; }
+    .actions { display: flex; align-items: center; gap: 13px; min-height: 54px; }
+    button { border: 0; border-radius: 0; padding: 15px 21px; font: 800 11px ui-monospace, monospace; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: background .2s, color .2s, transform .18s; }
+    button:focus-visible, input:focus-visible + span { outline: 2px solid white; outline-offset: 4px; }
+    .yes { color: #10120f; background: var(--acid); box-shadow: 4px 4px 0 rgba(214,255,63,.18); }
+    .yes:hover { background: #e4ff81; transform: translateY(-2px); }
+    .no { position: relative; color: #aaa99e; background: #282a25; border: 1px solid #464840; }
+    .response { display: none; margin-top: 22px; padding: 20px; border: 1px solid var(--line); background: rgba(214,255,63,.045); animation: reveal .3s ease-out; }
+    .response.show { display: block; }
+    @keyframes reveal { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .response h2 { margin: 0 0 7px; color: var(--acid); font-size: 14px; letter-spacing: .1em; text-transform: uppercase; }
+    .response p { margin: 0 0 15px; color: #c2c0b2; font: 13px/1.55 system-ui, sans-serif; }
+    .checks { display: grid; gap: 12px; margin: 17px 0 20px; }
+    .check { display: flex; align-items: flex-start; gap: 11px; color: var(--ink); font: 14px/1.45 system-ui, sans-serif; cursor: pointer; }
+    .check input { width: 17px; height: 17px; margin: 1px 0 0; accent-color: var(--acid); flex: 0 0 auto; }
+    .confirm { color: #10120f; background: var(--acid); }
+    .confirm:disabled { color: #75776c; background: #34372e; cursor: not-allowed; box-shadow: none; }
+    .foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 27px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,.1); color: #77796e; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; }
+    .overlay { display: none; position: fixed; z-index: 5; inset: 0; place-items: center; padding: 24px; background: #070807f2; text-align: center; }
+    .overlay.show { display: grid; }
+    .alert { width: min(100%, 500px); }
+    .alert .warning { color: var(--red); font-size: 11px; letter-spacing: .28em; text-transform: uppercase; }
+    .alert h2 { margin: 23px 0 12px; font-size: clamp(34px, 8vw, 58px); line-height: 1; text-transform: uppercase; }
+    .count { margin: 17px 0; color: var(--acid); font-size: clamp(60px, 15vw, 100px); font-weight: 900; line-height: 1; }
+    .bar { height: 3px; margin: 24px 0; background: #32352d; overflow: hidden; }
+    .bar span { display: block; width: 100%; height: 100%; background: var(--acid); transform-origin: left; animation: drain 5s linear forwards; }
+    @keyframes drain { to { transform: scaleX(0); } }
+    .alert p { color: var(--muted); font: 14px/1.6 system-ui, sans-serif; }
+    .alert .return { display: none; margin: 14px auto 0; color: var(--acid); background: transparent; border: 1px solid var(--line); }
+    .alert.done .return { display: inline-block; }
+    @media (max-width: 520px) { .topline { font-size: 8px; } .eyebrow { margin-top: 31px; } .datum { padding: 14px 12px; } .value { font-size: 13px; } .actions { gap: 8px; } button { padding: 14px 15px; } .foot { font-size: 8px; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <main>
+      <div class="topline"><span class="signal">Secure channel · Open invitation</span><span class="stamp">Top secret</span></div>
+      <p class="eyebrow">Your mission, should you choose to accept it</p>
+      <h1>Operation<span>Birthday</span></h1>
+      <p class="intro">You’ve been selected for a high-stakes evening of questionable decisions, excellent company, and celebrating one more year of classified operations.</p>
+      <section class="dossier" aria-label="Party details">
+        <div class="datum"><span class="label">Agent of honor</span><span class="value edit">[Your name]</span></div>
+        <div class="datum"><span class="label">Date &amp; time</span><span class="value edit">[Date] · [Time]</span></div>
+        <div class="datum"><span class="label">Location</span><span class="value edit">[Party address]</span></div>
+        <div class="datum"><span class="label">Dress code</span><span class="value">Disguise optional. Dancing likely.</span></div>
+      </section>
+      <p class="section-label">Confirm your participation</p>
+      <div class="actions">
+        <button class="yes" id="yesBtn" type="button">Yes, I’m in →</button>
+        <button class="no" id="noBtn" type="button">No, I can’t</button>
+      </div>
+      <section class="response" id="response" aria-live="polite">
+        <h2>Good. You’re on the team.</h2>
+        <p>Before we lock in your cover story, acknowledge both field requirements:</p>
+        <div class="checks">
+          <label class="check"><input type="checkbox" class="requirement"><span>I'll bring my own drinks</span></label>
+          <label class="check"><input type="checkbox" class="requirement"><span>Me la voy a dar en la pera</span></label>
+        </div>
+        <button class="confirm" id="confirmBtn" type="button" disabled>Confirm the mission</button>
+      </section>
+      <footer class="foot"><span>Unauthorized fun is encouraged</span><span>IMF · Birthday Division</span></footer>
+    </main>
+  </div>
+  <div class="overlay" id="overlay" role="alertdialog" aria-modal="true" aria-labelledby="alertTitle" aria-describedby="alertMessage">
+    <div class="alert" id="alert">
+      <div class="warning">⚠ Incoming secure transmission</div>
+      <h2 id="alertTitle">Mission accepted</h2>
+      <div class="count" id="count">5</div>
+      <div class="bar"><span></span></div>
+      <p id="alertMessage">This message will self-destruct in <span id="seconds">5</span> seconds.</p>
+      <button class="return" id="returnBtn" type="button">Return to invitation</button>
+    </div>
+  </div>
+  <script>
+    const yesBtn = document.querySelector('#yesBtn');
+    const noBtn = document.querySelector('#noBtn');
+    const response = document.querySelector('#response');
+    const confirmBtn = document.querySelector('#confirmBtn');
+    const requirements = [...document.querySelectorAll('.requirement')];
+    const overlay = document.querySelector('#overlay');
+    const alertBox = document.querySelector('#alert');
+    const count = document.querySelector('#count');
+    let seconds = document.querySelector('#seconds');
+    let countdown;
+
+    yesBtn.addEventListener('click', () => {
+      response.classList.add('show');
+      response.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      requirements[0].focus({ preventScroll: true });
+    });
+    const updateConfirm = () => { confirmBtn.disabled = !requirements.every(box => box.checked); };
+    requirements.forEach(box => box.addEventListener('change', updateConfirm));
+    noBtn.addEventListener('pointerenter', () => {
+      const bounds = noBtn.getBoundingClientRect();
+      const margin = 18;
+      const x = margin + Math.random() * Math.max(0, window.innerWidth - bounds.width - margin * 2);
+      const y = margin + Math.random() * Math.max(0, window.innerHeight - bounds.height - margin * 2);
+      noBtn.style.position = 'fixed';
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+      noBtn.style.zIndex = '3';
+    });
+    noBtn.addEventListener('click', () => yesBtn.click());
+    confirmBtn.addEventListener('click', () => {
+      if (confirmBtn.disabled) return;
+      overlay.classList.add('show');
+      alertBox.classList.remove('done');
+      let remaining = 5;
+      count.textContent = remaining;
+      seconds.textContent = remaining;
+      countdown = window.setInterval(() => {
+        remaining -= 1;
+        count.textContent = remaining > 0 ? remaining : '✕';
+        seconds.textContent = remaining > 0 ? remaining : '0';
+        if (remaining <= 0) {
+          window.clearInterval(countdown);
+          document.querySelector('#alertMessage').textContent = 'This message has been erased. Your RSVP is secured. See you there, agent.';
+          alertBox.classList.add('done');
+        }
+      }, 1000);
+    });
+    document.querySelector('#returnBtn').addEventListener('click', () => {
+      window.clearInterval(countdown);
+      overlay.classList.remove('show');
+      document.querySelector('#alertMessage').innerHTML = 'This message will self-destruct in <span id="seconds">5</span> seconds.';
+      seconds = document.querySelector('#seconds');
+    });
+  </script>
+</body>
+</html>
