@@ -489,6 +489,18 @@
     noBtn.addEventListener('pointerenter', event => {
       if (event.pointerType === 'mouse') jumpNoButton(event.clientX, event.clientY);
     });
+    let blockRetargetedTouchClick = false;
+    document.addEventListener('pointerdown', event => {
+      if (event.pointerType === 'touch') {
+        blockRetargetedTouchClick = event.target === noBtn;
+      }
+    }, true);
+    document.addEventListener('click', event => {
+      if (!blockRetargetedTouchClick) return;
+      blockRetargetedTouchClick = false;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }, true);
     noBtn.addEventListener('pointerdown', event => {
       if (event.pointerType === 'touch') {
         event.preventDefault();
