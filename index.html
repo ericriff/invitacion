@@ -27,12 +27,16 @@
       background-size: auto, 36px 36px, 36px 36px;
       display: grid; place-items: center; padding: 28px 18px;
     }
+    .watermark { position: absolute; z-index: 0; inset: 0; display: grid; place-items: center; overflow: hidden; pointer-events: none; }
+    .watermark span { display: block; width: 100%; color: #ff3030; opacity: .085; font: 900 18cqw/.9 Impact, "Arial Narrow", sans-serif; letter-spacing: .025em; text-align: center; white-space: nowrap; transform: rotate(-24deg); text-shadow: 0 0 2px #ff303033; }
     body::after { content: ""; pointer-events: none; position: fixed; inset: 0; opacity: .14; background: repeating-linear-gradient(0deg, transparent 0 3px, #000 4px); }
-    .frame { position: relative; width: min(100%, 760px); border: 1px solid var(--line); padding: 10px; background: rgba(0,0,0,.26); box-shadow: 0 24px 100px #0009; }
+    .frame { position: relative; z-index: 1; width: min(100%, 760px); border: 1px solid var(--line); padding: 10px; background: rgba(0,0,0,.26); box-shadow: 0 24px 100px #0009; }
     .frame::before, .frame::after { content: ""; position: absolute; width: 16px; height: 16px; border-color: var(--acid); border-style: solid; }
     .frame::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
     .frame::after { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
-    main { position: relative; overflow: hidden; padding: clamp(24px, 6vw, 58px); border: 1px solid rgba(255,255,255,.09); background: var(--panel); }
+    main { position: relative; container-type: inline-size; isolation: isolate; overflow: hidden; padding: clamp(24px, 6vw, 58px); border: 1px solid rgba(255,255,255,.09); background: var(--panel); }
+    main > :not(.watermark) { position: relative; z-index: 1; }
+    main > .watermark { z-index: 0; }
     main::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(135deg, transparent 49.8%, rgba(214,255,63,.08) 50%, transparent 50.2%); }
     .topline { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: var(--muted); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; }
     .stamp { color: var(--acid); border: 1px solid var(--acid); padding: 7px 10px; transform: rotate(-4deg); }
@@ -87,7 +91,7 @@
 <body>
   <div class="frame">
     <main>
-      <div class="topline"><span class="signal">Secure channel · Open invitation</span><span class="stamp">Top secret</span></div>
+      <div class="watermark" aria-hidden="true"><span>TOP SECRET</span></div>
       <p class="eyebrow">Your mission, should you choose to accept it</p>
       <h1>Operation<span>Birthday</span></h1>
       <p class="intro">You’ve been selected for a high-stakes evening of questionable decisions, excellent company, and celebrating one more year of classified operations.</p>
