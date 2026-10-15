@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="es-AR">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#10120f">
-  <meta name="description" content="A classified birthday party invitation. Accept the mission before this message self-destructs.">
-  <title>Operation: Birthday — Classified Invitation</title>
+  <meta name="description" content="Una invitación de cumpleaños clasificada. Aceptá la misión antes de que este mensaje se autodestruya.">
+  <title>Operación: Cumpleaños — Invitación clasificada</title>
   <style>
     :root {
       color-scheme: dark;
@@ -211,15 +211,15 @@
   </style>
 </head>
 <body>
-  <section class="boot-screen" id="bootScreen" aria-label="Insert the invitation drive">
+  <section class="boot-screen" id="bootScreen" aria-label="Conectá el pen drive">
     <div class="boot-panel">
-      <div class="boot-kicker">Classified transmission detected</div>
-      <h1 class="boot-title">Connect the secure drive</h1>
-      <p class="boot-hint">Drag the USB drive into the computer to decrypt the invitation.</p>
+      <div class="boot-kicker">Se detectó una transmisión encriptada</div>
+      <h1 class="boot-title">Conectá el pen drive encriptado</h1>
+      <p class="boot-hint">Arrastrá el pen drive hasta la computadora para desencriptar el mensaje.</p>
       <div class="desk" id="desk">
-        <div class="computer" id="computer" aria-label="Computer USB port">
+        <div class="computer" id="computer" aria-label="Puerto USB de la computadora">
           <div class="monitor-frame">
-            <div class="monitor"><div class="monitor-screen"><span class="screen-mark">IMF · Secure terminal</span><span class="screen-prompt">Awaiting drive</span></div></div>
+            <div class="monitor"><div class="monitor-screen"><span class="screen-mark">SIDE · PC segura</span><span class="screen-prompt">Esperando unidad</span></div></div>
             <div class="monitor-slot" aria-hidden="true"></div>
             <div class="power-light" aria-hidden="true"></div>
             <div class="computer-stand" aria-hidden="true"></div>
@@ -232,71 +232,71 @@
           </div>
           <div class="keyboard" aria-hidden="true"></div>
         </div>
-        <button class="usb-drive" id="usbDrive" type="button" aria-label="USB drive. Drag it onto the computer.">
+        <button class="usb-drive" id="usbDrive" type="button" aria-label="Pen Drive encriptado. Arrastralo hasta la computadora.">
           <span class="usb-shell">TOP SECRET</span><span class="usb-plug" aria-hidden="true"></span>
         </button>
       </div>
-      <button class="insert-option" id="insertOption" type="button">Insert drive</button>
-      <div class="boot-status" id="bootStatus" aria-live="polite">Drive ready · Awaiting connection</div>
+      <button class="insert-option" id="insertOption" type="button">Conectar pen drive</button>
+      <div class="boot-status" id="bootStatus" aria-live="polite">Pen Drive listo · Esperando conexión</div>
     </div>
   </section>
   <div class="frame">
     <main>
       <div class="watermark" aria-hidden="true"><span>TOP SECRET</span></div>
-      <p class="eyebrow">Your mission, should you choose to accept it</p>
-      <h1>Operation<span>Birthday</span></h1>
-      <p class="intro">You’ve been selected for a high-stakes evening of questionable decisions, excellent company, and celebrating one more year of classified operations.</p>
-      <section class="dossier" aria-label="Party details">
-        <div class="datum"><span class="label">Agent of honor</span><span class="value edit">[Your name]</span></div>
-        <div class="datum"><span class="label">Date &amp; time</span><span class="value edit">[Date] · [Time]</span></div>
-        <div class="datum"><span class="label">Location</span><span class="value edit">[Party address]</span></div>
-        <div class="datum"><span class="label">Dress code</span><span class="value">Disguise optional. Dancing likely.</span></div>
+      <p class="eyebrow">Tu misión, si decidís aceptarla</p>
+      <h1>Operación<span>C.A. 35</span></h1>
+      <p class="intro">Has sido seleccionado para una noche de decisiones dudosas, amigos y un año más de operaciones clasificadas.</p>
+      <section class="dossier" aria-label="Detalles de la mision">
+        <div class="datum"><span class="label">Agente operativo de campo</span><span class="value edit">Eric Riff</span></div>
+        <div class="datum"><span class="label">Fecha y hora</span><span class="value edit">24/10/2026 · 21hs</span></div>
+        <div class="datum"><span class="label">Localizacion</span><span class="value edit">25 de Mayo 772.<br>Republica separatista de San Carlos.</span></div>
+        <div class="datum"><span class="label">Vestimenta</span><span class="value edit">Opcional pero sugerida.</span></div>
       </section>
-      <p class="section-label">Confirm your participation</p>
+      <p class="section-label">DECISION</p>
       <div class="actions">
-        <button class="yes" id="yesBtn" type="button">Yes, I’m in →</button>
-        <button class="no" id="noBtn" type="button">No, I can’t</button>
+        <button class="yes" id="yesBtn" type="button">ACEPTAR MISIÓN</button>
+        <button class="no" id="noBtn" type="button">DENEGAR MISIÓN</button>
       </div>
-      <footer class="foot"><span>Unauthorized fun is encouraged</span><span>IMF · Birthday Division</span></footer>
+      <footer class="foot"><span>La diversión no autorizada está permitida</span><span>SIDE · División Cumpleaños</span></footer>
     </main>
   </div>
   <div class="rsvp-overlay" id="rsvpOverlay">
     <section class="rsvp-dialog" role="dialog" aria-modal="true" aria-labelledby="rsvpTitle" aria-describedby="rsvpDescription">
-      <button class="rsvp-close" id="rsvpClose" type="button" aria-label="Close RSVP">×</button>
+      <button class="rsvp-close" id="rsvpClose" type="button" aria-label="Cerrar confirmación">×</button>
       <header class="rsvp-heading">
-        <div class="rsvp-kicker">Mission acceptance · Step 02</div>
-        <h2 id="rsvpTitle">Lock in your cover</h2>
-        <p id="rsvpDescription">Confirm both field requirements before your RSVP is transmitted.</p>
+        <div class="rsvp-kicker">Aceptación de misión · Paso 02</div>
+        <h2 id="rsvpTitle">Confirmacion de Requisitos</h2>
+        <p id="rsvpDescription">Aceptá estos requisitos antes de confirmar la mision.</p>
       </header>
       <div class="checks">
         <label class="check">
           <input type="checkbox" class="requirement">
           <span class="check-number">01</span>
-          <span class="check-copy"><strong>I'll bring my own drinks</strong><small>Field supplies are your responsibility.</small></span>
+          <span class="check-copy"><strong>Llevo lo que voy a tomar</strong><small>Que dios se apiade de nuestra sed.</small></span>
         </label>
         <label class="check">
           <input type="checkbox" class="requirement">
           <span class="check-number">02</span>
-          <span class="check-copy"><strong>Me la voy a dar en la pera</strong><small>Commitment to the birthday operation.</small></span>
+          <span class="check-copy"><strong>Me la voy a dar en la pera</strong><small>Compromiso total con la misión.</small></span>
         </label>
       </div>
       <div class="dialog-actions">
-        <span class="check-count" id="checkCount" aria-live="polite">0 / 2 confirmed</span>
-        <button class="confirm" id="confirmBtn" type="button" disabled>Confirm mission →</button>
+        <span class="check-count" id="checkCount" aria-live="polite">0 / 2 confirmados</span>
+        <button class="confirm" id="confirmBtn" type="button" disabled>Confirmar misión →</button>
       </div>
     </section>
   </div>
   <div class="overlay" id="overlay" role="alertdialog" aria-modal="true" aria-labelledby="alertTitle" aria-describedby="alertMessage">
     <div class="alert" id="alert">
-      <div class="warning">⚠ Incoming secure transmission</div>
-      <h2 id="alertTitle">Mission accepted</h2>
+      <div class="warning">⚠ Transmisión segura entrante</div>
+      <h2 id="alertTitle">Misión aceptada</h2>
       <div class="bar"><span></span></div>
       <div id="alertMessage" class="countdown-message" aria-live="polite">
-        <span>This message will self destruct in</span>
+        <span>Este mensaje se autodestruira en</span>
         <span class="count" id="count">5</span>
-        <span>Seconds</span>
+        <span>Segundos</span>
       </div>
-      <a class="send-whatsapp" id="sendWhatsapp" target="_blank" rel="noopener noreferrer">Send on WhatsApp ↗</a>
+      <a class="send-whatsapp" id="sendWhatsapp" target="_blank" rel="noopener noreferrer">Confirmar por WhatsApp ↗</a>
       <svg class="crack-overlay" viewBox="0 0 500 420" preserveAspectRatio="none" aria-hidden="true">
         <g>
           <path d="M250 210 226 187 232 164 205 143 212 119 188 94 193 66 173 42"/>
@@ -345,7 +345,7 @@
     const launchInvitation = () => {
       if (document.body.classList.contains('started')) return;
       soundtrack.play().catch(() => {});
-      bootStatus.textContent = 'Connection established · Decrypting invitation…';
+      bootStatus.textContent = 'Conexión establecida · Descifrando invitación…';
       computer.classList.add('ready');
       bootScreen.classList.add('leaving');
       window.setTimeout(() => {
@@ -430,7 +430,7 @@
     const updateConfirm = () => {
       const selectedCount = requirements.filter(box => box.checked).length;
       confirmBtn.disabled = selectedCount !== requirements.length;
-      checkCount.textContent = `${selectedCount} / ${requirements.length} confirmed`;
+      checkCount.textContent = `${selectedCount} / ${requirements.length} confirmados`;
     };
     requirements.forEach(box => box.addEventListener('change', updateConfirm));
     const jumpNoButton = (pointerX, pointerY) => {
@@ -518,7 +518,7 @@
       overlay.classList.add('show');
       alertBox.classList.remove('done', 'erased', 'shattering');
       alertBox.classList.remove('permanent-glitch');
-      document.querySelector('#alertMessage').innerHTML = '<span>This message will self destruct in</span><span class="count" id="count">5</span><span>Seconds</span>';
+      document.querySelector('#alertMessage').innerHTML = '<span>Este mensaje se autodestruira en</span><span class="count" id="count">5</span><span>Segundos</span>';
       count = document.querySelector('#count');
       let remaining = 5;
       count.textContent = remaining;
@@ -531,15 +531,15 @@
           overlay.classList.add('shattering', 'blackout');
           window.setTimeout(() => {
             alertBox.classList.remove('shattering');
-            document.querySelector('#alertMessage').textContent = 'Message destroyed';
-            document.querySelector('#alertMessage').dataset.text = 'Message destroyed';
+            document.querySelector('#alertMessage').textContent = 'Mensaje destruido';
+            document.querySelector('#alertMessage').dataset.text = 'Mensaje destruido';
             alertBox.classList.add('done', 'erased', 'permanent-glitch');
           }, 1700);
         }
       }, 1000);
     });
     const sendWhatsapp = document.querySelector('#sendWhatsapp');
-    sendWhatsapp.href = `https://wa.me/?text=${encodeURIComponent("Mission accepted! I'll be there. I'll bring my own drinks, and me la voy a dar en la pera. 🎉")}`;
+    sendWhatsapp.href = `https://wa.me/?text=${encodeURIComponent("¡Misión aceptada! Ahí estaré. Llevo mis bebidas y me voy a dar en la pera. 🎉")}`;
     sendWhatsapp.addEventListener('click', () => {
       alertBox.classList.remove('permanent-glitch');
       overlay.classList.remove('show', 'blackout', 'shattering');
