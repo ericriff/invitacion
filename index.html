@@ -478,7 +478,6 @@
       noBtn.style.top = `${spot.y}px`;
       noBtn.style.zIndex = '2';
     });
-    noBtn.addEventListener('click', () => yesBtn.click());
     confirmBtn.addEventListener('click', () => {
       if (confirmBtn.disabled) return;
       rsvpOverlay.classList.remove('show');
