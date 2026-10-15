@@ -192,6 +192,21 @@
       100% { opacity: 0; transform: translate(var(--shard-x),var(--shard-y)) rotate(var(--shard-rotate)); }
     }
     @media (max-width: 520px) { .topline { font-size: 8px; } .eyebrow { margin-top: 31px; } .datum { padding: 14px 12px; } .value { font-size: 13px; } .actions { gap: 8px; } button { padding: 14px 15px; } .foot { font-size: 8px; } }
+    @media (max-width: 520px) {
+      body.started { height: 100svh; min-height: 0; overflow: hidden; padding: 10px 12px; }
+      body.started .frame { max-height: 100%; padding: 7px; }
+      main { max-height: 100%; padding: 20px; }
+      .eyebrow { margin: 23px 0 9px; font-size: 9px; letter-spacing: .2em; }
+      main h1 { font-size: clamp(40px, 12vw, 64px); }
+      .intro { margin: 15px 0 18px; font-size: 13px; line-height: 1.5; }
+      .datum { padding: 10px; }
+      .label { margin-bottom: 5px; font-size: 8px; }
+      .value { font-size: 12px; }
+      .section-label { margin: 18px 0 8px; font-size: 9px; }
+      .actions { min-height: 44px; gap: 8px; }
+      .actions button { padding: 12px 13px; font-size: 10px; }
+      .foot { margin-top: 17px; padding-top: 10px; font-size: 7px; }
+    }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } }
   </style>
 </head>
@@ -301,6 +316,7 @@
       </svg>
     </div>
   </div>
+  <audio id="soundtrack" src="ma-soundtrack.mp3" preload="auto" autoplay loop></audio>
   <script>
     const yesBtn = document.querySelector('#yesBtn');
     const noBtn = document.querySelector('#noBtn');
@@ -311,6 +327,7 @@
     const requirements = [...document.querySelectorAll('.requirement')];
     const overlay = document.querySelector('#overlay');
     const alertBox = document.querySelector('#alert');
+    const soundtrack = document.querySelector('#soundtrack');
     let count = document.querySelector('#count');
     let countdown;
     let noJumpCount = 0;
@@ -327,6 +344,7 @@
 
     const launchInvitation = () => {
       if (document.body.classList.contains('started')) return;
+      soundtrack.play().catch(() => {});
       bootStatus.textContent = 'Connection established · Decrypting invitation…';
       computer.classList.add('ready');
       bootScreen.classList.add('leaving');
